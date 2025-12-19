@@ -9,8 +9,31 @@ import java.awt.Color;
  */
 public class Editor2 {
 
-	public static void main (String[] args){
-		//// Replace this comment with your code.
-		//// This function is similar to the main function of Editor1.java			
-	}
+    public static void main (String[] args){
+        // 1. קבלת הארגומנטים מהמשתמש
+        // args[0] הוא שם הקובץ (String)
+        // args[1] הוא הרוחב המבוקש (הופך מ-String ל-int)
+        // args[2] הוא הגובה המבוקש (הופך מ-String ל-int)
+        String fileName = args[0];
+        int width = Integer.parseInt(args[1]);
+        int height = Integer.parseInt(args[2]);
+
+        // 2. קריאת תמונת המקור מהקובץ
+        Color[][] imageIn = Runigram.read(fileName);    
+        
+        // 3. יצירת התמונה החדשה (המשונה) באמצעות פונקציית ה-scaled שבנית ב-Runigram
+        Color[][] imageOut = Runigram.scaled(imageIn, width, height);
+        
+        // 4. הצגת תמונת המקור בחלון (קנבס) שמתאים לממדים שלה
+        Runigram.setCanvas(imageIn);
+        Runigram.display(imageIn);
+        
+        // המתנה של 3 שניות כדי שנוכל לראות את ההבדל
+        StdDraw.pause(3000); 
+        
+        // 5. שינוי גודל החלון (קנבס) שיתאים לממדים של התמונה החדשה
+        // זה שלב קריטי כי התמונה החדשה והישנה לא באותו גודל!
+        Runigram.setCanvas(imageOut);
+        Runigram.display(imageOut);            
+    }
 }
